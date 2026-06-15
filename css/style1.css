@@ -385,7 +385,7 @@ ul  { list-style: none; }
   background-size: cover;
   /* En móvil centramos en la parte superior donde suele estar el sujeto */
   background-position: center top;
-  filter: brightness(0.55);
+  filter: brightness(0.80);
   transform: scale(1.04);
   transition: transform 8s ease;
 }
@@ -689,25 +689,71 @@ ul  { list-style: none; }
 /* Touch target mínimo para el enlace de reservar */
 .servicio-reservar {
   font-family: var(--font-titulo);
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--naranja);
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 8px;
   min-height: var(--touch-min);
-  border: none;
+  width: 100%;
+  border: 2px solid var(--naranja);
+  border-radius: 10px;
   background: none;
   cursor: pointer;
-  padding: 0;
-  transition: gap var(--transicion);
+  padding: 0 var(--espacio-sm);
+  margin-top: var(--espacio-xs);
+  transition: background var(--transicion), color var(--transicion);
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Teléfono en hero */
+.hero-telefono {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--espacio-md);
+  min-height: var(--touch-min);
+  font-family: var(--font-titulo);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--blanco-puro);
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  padding-bottom: 2px;
+  transition: color var(--transicion), border-color var(--transicion);
+  -webkit-tap-highlight-color: transparent;
+  animation: fadeInUp 0.7s 0.5s ease both;
+}
+
+.hero-telefono svg {
+  color: var(--naranja);
+  flex-shrink: 0;
+}
+
+.hero-telefono:active,
+.hero-telefono:hover {
+  color: var(--naranja);
+  border-color: var(--naranja);
+}
+
+.servicio-reservar:active {
+  background: var(--naranja);
+  color: var(--blanco-puro);
+}
+
 @media (min-width: 1024px) {
-  .servicio-reservar:hover { gap: 10px; }
+  .servicio-reservar {
+    width: auto;
+    justify-content: flex-start;
+  }
+  .servicio-reservar:hover {
+    background: var(--naranja);
+    color: var(--blanco-puro);
+  }
 }
 
 .servicios-footer {

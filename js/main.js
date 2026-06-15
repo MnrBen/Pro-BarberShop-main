@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-
+  
   // ---- Scroll reveal ----
   const elementosReveal = document.querySelectorAll('.reveal');
 
