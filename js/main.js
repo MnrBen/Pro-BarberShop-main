@@ -160,4 +160,36 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight')  irSiguiente();
 });
 
+// ---- Filtros de galería ----
+  const filtroBtns = document.querySelectorAll('.filtro-btn');
+  const galeriaItems = document.querySelectorAll('.galeria-grid-completa .galeria-item');
+  const galeriaVacio = document.getElementById('galeria-vacio');
+
+  if (filtroBtns.length && galeriaItems.length) {
+    filtroBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filtro = btn.getAttribute('data-filtro');
+
+        filtroBtns.forEach(b => {
+          b.classList.remove('activo');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('activo');
+        btn.setAttribute('aria-selected', 'true');
+
+        let visibles = 0;
+
+        galeriaItems.forEach(item => {
+          const categorias = item.getAttribute('data-categoria').split(' ');
+          const coincide = filtro === 'todos' || categorias.includes(filtro);
+          item.classList.toggle('oculto', !coincide);
+          if (coincide) visibles++;
+        });
+
+        if (galeriaVacio) {
+          galeriaVacio.hidden = visibles > 0;
+        }
+      });
+    });
+  }
 });
