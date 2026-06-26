@@ -192,4 +192,29 @@ document.addEventListener('keydown', (e) => {
       });
     });
   }
+
+  // ---- Swipe táctil en el lightbox (mobile first) ----
+  if (lightbox) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const UMBRAL_SWIPE = 50; // px mínimos para considerar swipe
+
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const distancia = touchEndX - touchStartX;
+
+      if (Math.abs(distancia) < UMBRAL_SWIPE) return;
+
+      if (distancia > 0) {
+        irAnterior();
+      } else {
+        irSiguiente();
+      }
+    }, { passive: true });
+  }
+  
 });

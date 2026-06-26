@@ -198,7 +198,7 @@ ul  { list-style: none; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 0 var(--espacio-md);
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid var(--naranja);
   border-radius: var(--radio);
   cursor: pointer;
   transition: border-color var(--transicion), color var(--transicion);
@@ -706,6 +706,20 @@ ul  { list-style: none; }
   font-weight: 400;
   color: var(--gris-medio);
   font-family: var(--font-cuerpo);
+}
+
+.servicio-leer-mas {
+  color: var(--naranja);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(232,119,34,0.4);
+  white-space: nowrap;
+  transition: opacity var(--transicion);
+}
+
+.servicio-leer-mas:active,
+.servicio-leer-mas:hover {
+  opacity: 0.75;
 }
 
 /* Touch target mínimo para el enlace de reservar */
@@ -1685,23 +1699,35 @@ ul  { list-style: none; }
 
 .header-pagina-titulo-compacto {
   font-size: clamp(2rem, 8vw, 3rem);
-  margin-bottom: 0;
+  margin-bottom: var(--espacio-sm);
+}
+
+.header-pagina-frase {
+  font-size: 0.85rem;
+  color: var(--gris-claro);
+  font-weight: 300;
+  margin-top: 0;
+  margin-bottom: var(--espacio-md);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 /* Cuando el header compacto lleva badge y subtítulo (ej. reservas) */
 .header-pagina-compacto .hero-badge {
-  margin-bottom: var(--espacio-xs);
+  margin-bottom: var(--espacio-sm);
 }
 
 .header-pagina-compacto .hero-subtitulo {
-  margin-bottom: var(--espacio-xs);
-  font-size: 0.80rem;
+  margin-bottom: var(--espacio-md);
+  font-size: 0.85rem;
 }
 
 @media (min-width: 768px) {
   .header-pagina-compacto .hero-subtitulo {
     font-size: 0.95rem;
-    margin-bottom: var(--espacio-sm);
+    margin-bottom: var(--espacio-md);
   }
 }
 
@@ -1710,27 +1736,42 @@ ul  { list-style: none; }
   margin-bottom: 0;
 }
 
-.header-pagina-compacto .header-pagina-glow {
-  width: 220px;
-  height: 220px;
-  top: -60px;
+.header-pagina-acciones {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: var(--espacio-sm);
+  flex-wrap: wrap;
+  margin-top: var(--espacio-xs);
 }
 
-.header-pagina-compacto .header-pagina-glow-abajo {
-  width: 200px;
-  height: 200px;
-  bottom: -70px;
+.header-pagina-acciones .btn-primario {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0 var(--espacio-md);
+  min-height: 38px;
+  width: auto;
 }
 
-@media (min-width: 768px) {
-  .header-pagina-compacto .header-pagina-glow {
-    width: 280px;
-    height: 280px;
-  }
-  .header-pagina-compacto .header-pagina-glow-abajo {
-    width: 260px;
-    height: 260px;
-  }
+.header-pagina-acciones .btn-volver {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--gris-claro);
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.25);
+  min-height: 38px;
+  padding: 0 4px;
+  transition: color var(--transicion);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.header-pagina-acciones .btn-volver:active,
+.header-pagina-acciones .btn-volver:hover {
+  color: var(--naranja);
+  text-decoration-color: var(--naranja);
 }
 
 /* ============================================
@@ -2085,4 +2126,123 @@ ul  { list-style: none; }
   color: var(--gris-claro);
   font-size: 0.9rem;
   padding: var(--espacio-lg) 0;
+}
+
+/* ============================================
+   EXTRAS — servicios.html
+   ============================================ */
+.extras-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-xs);
+  margin-bottom: var(--espacio-md);
+}
+
+@media (min-width: 600px) {
+  .extras-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.extra-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--negro-3);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radio);
+  padding: var(--espacio-sm) var(--espacio-md);
+}
+
+.extra-nombre {
+  font-size: 0.88rem;
+  color: var(--blanco-puro);
+  font-weight: 500;
+}
+
+.extra-precio {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  color: var(--naranja);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-left: var(--espacio-sm);
+}
+
+.extras-nota {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--gris-medio);
+}
+
+/* ============================================
+   CONTACTO — mapa + datos
+   ============================================ */
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-lg);
+}
+
+@media (min-width: 1024px) {
+  .contacto-grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+}
+
+.contacto-mapa-wrap {
+  border-radius: var(--radio-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  aspect-ratio: 4 / 3;
+}
+
+@media (min-width: 768px) {
+  .contacto-mapa-wrap { aspect-ratio: 16 / 11; }
+}
+
+.contacto-mapa-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: grayscale(15%) contrast(1.05);
+}
+
+.info-grid-vertical {
+  grid-template-columns: 1fr;
+  margin-bottom: 0;
+}
+
+.contacto-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--naranja);
+  margin-top: 8px;
+  transition: opacity var(--transicion);
+}
+
+.contacto-link:active,
+.contacto-link:hover { opacity: 0.8; }
+
+.contacto-link-inline {
+  color: var(--naranja);
+  font-weight: 600;
+  transition: opacity var(--transicion);
+}
+
+.contacto-link-inline:active,
+.contacto-link-inline:hover { opacity: 0.8; }
+
+.servicios-galeria-cta {
+  text-align: center;
+  margin-top: var(--espacio-lg);
+}
+
+.servicios-galeria-texto {
+  font-size: 0.88rem;
+  color: var(--gris-claro);
+  margin-bottom: var(--espacio-sm);
 }
