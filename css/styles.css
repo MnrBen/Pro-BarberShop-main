@@ -243,12 +243,12 @@ ul  { list-style: none; }
 }
 
 .nav-logo {
-  height: 32px;
+  height: 40px;
   width: auto;
 }
 
 @media (min-width: 1024px) {
-  .nav-logo { height: 38px; }
+  .nav-logo { height: 46px; }
 }
 
 /* Links de navegación — ocultos en móvil */
@@ -1532,6 +1532,7 @@ ul  { list-style: none; }
   justify-content: center;
   padding: var(--espacio-sm);
   cursor: zoom-out;
+  touch-action: none;
 }
 
 .lightbox.activo { display: flex; }
@@ -1993,6 +1994,19 @@ ul  { list-style: none; }
   align-items: flex-start;
   text-align: left;
   transition: background var(--transicion), border-color var(--transicion);
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 110px;
+  background: linear-gradient(to left, rgba(232,119,34,0.20) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 @media (min-width: 1024px) {
@@ -2027,6 +2041,18 @@ ul  { list-style: none; }
   text-transform: uppercase;
   color: var(--blanco-puro);
   margin-bottom: 4px;
+}
+
+.info-card-texto {
+  font-size: 0.92rem;
+  color: var(--blanco-puro);
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.info-card-texto b {
+  color: var(--naranja);
+  font-weight: 600;
 }
 
 .reservar-nota {
@@ -2245,4 +2271,11 @@ ul  { list-style: none; }
   font-size: 0.88rem;
   color: var(--gris-claro);
   margin-bottom: var(--espacio-sm);
+}
+
+/*Boton tarjetas sobre-nosotros*/
+
+.seccion-cta-secundario {
+  text-align: center;
+  margin-top: var(--espacio-lg);
 }
