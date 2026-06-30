@@ -112,86 +112,57 @@ const lightboxCerrar  = document.getElementById('lightbox-cerrar');
 const lightboxPrev    = document.getElementById('lightbox-prev');
 const lightboxNext    = document.getElementById('lightbox-next');
 
-const items = Array.from(document.querySelectorAll('.galeria-item'));
-let indiceActual = 0;
+let irAnterior, irSiguiente;
 
-function abrirLightbox(indice) {
-  const img = items[indice].querySelector('img');
-  if (!img) return;
-  lightboxImg.setAttribute('src', img.getAttribute('src'));
-  lightboxImg.setAttribute('alt', img.getAttribute('alt') || '');
-  indiceActual = indice;
-  lightbox.classList.add('activo');
-  document.body.style.overflow = 'hidden';
+if (lightbox) {
+  const items = Array.from(document.querySelectorAll('.galeria-item'));
+  let indiceActual = 0;
+
+  const abrirLightbox = (indice) => {
+    const img = items[indice].querySelector('img');
+    if (!img) return;
+    lightboxImg.setAttribute('src', img.getAttribute('src'));
+    lightboxImg.setAttribute('alt', img.getAttribute('alt') || '');
+    indiceActual = indice;
+    lightbox.classList.add('activo');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const cerrarLightbox = () => {
+    lightbox.classList.remove('activo');
+    document.body.style.overflow = '';
+    lightboxImg.setAttribute('src', '');
+  };
+
+  irAnterior = () => {
+    indiceActual = (indiceActual - 1 + items.length) % items.length;
+    abrirLightbox(indiceActual);
+  };
+
+  irSiguiente = () => {
+    indiceActual = (indiceActual + 1) % items.length;
+    abrirLightbox(indiceActual);
+  };
+
+  items.forEach((item, indice) => {
+    item.addEventListener('click', () => abrirLightbox(indice));
+  });
+
+  lightboxCerrar.addEventListener('click', cerrarLightbox);
+  lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); irAnterior(); });
+  lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); irSiguiente(); });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) cerrarLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('activo')) return;
+    if (e.key === 'Escape')      cerrarLightbox();
+    if (e.key === 'ArrowLeft')   irAnterior();
+    if (e.key === 'ArrowRight')  irSiguiente();
+  });
 }
-
-function cerrarLightbox() {
-  lightbox.classList.remove('activo');
-  document.body.style.overflow = '';
-  lightboxImg.setAttribute('src', '');
-}
-
-function irAnterior() {
-  indiceActual = (indiceActual - 1 + items.length) % items.length;
-  abrirLightbox(indiceActual);
-}
-
-function irSiguiente() {
-  indiceActual = (indiceActual + 1) % items.length;
-  abrirLightbox(indiceActual);
-}
-
-items.forEach((item, indice) => {
-  item.addEventListener('click', () => abrirLightbox(indice));
-});
-
-lightboxCerrar.addEventListener('click', cerrarLightbox);
-lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); irAnterior(); });
-lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); irSiguiente(); });
-
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) cerrarLightbox();
-});
-
-document.addEventListener('keydown', (e) => {
-  if (!lightbox.classList.contains('activo')) return;
-  if (e.key === 'Escape')      cerrarLightbox();
-  if (e.key === 'ArrowLeft')   irAnterior();
-  if (e.key === 'ArrowRight')  irSiguiente();
-});
-
-// ---- Filtros de galería ----
-  const filtroBtns = document.querySelectorAll('.filtro-btn');
-  const galeriaItems = document.querySelectorAll('.galeria-grid-completa .galeria-item');
-  const galeriaVacio = document.getElementById('galeria-vacio');
-
-  if (filtroBtns.length && galeriaItems.length) {
-    filtroBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filtro = btn.getAttribute('data-filtro');
-
-        filtroBtns.forEach(b => {
-          b.classList.remove('activo');
-          b.setAttribute('aria-selected', 'false');
-        });
-        btn.classList.add('activo');
-        btn.setAttribute('aria-selected', 'true');
-
-        let visibles = 0;
-
-        galeriaItems.forEach(item => {
-          const categorias = item.getAttribute('data-categoria').split(' ');
-          const coincide = filtro === 'todos' || categorias.includes(filtro);
-          item.classList.toggle('oculto', !coincide);
-          if (coincide) visibles++;
-        });
-
-        if (galeriaVacio) {
-          galeriaVacio.hidden = visibles > 0;
-        }
-      });
-    });
-  }
 
   // ---- Swipe táctil en el lightbox (mobile first) ----
 if (lightbox) {
